@@ -3,6 +3,7 @@ const {
   subtraction,
   multiplication,
   division,
+  calculate,
   modulo,
   power,
   squareRoot,
@@ -125,5 +126,24 @@ describe('squareRoot (square root)', () => {
     expect(() => squareRoot(-4)).toThrow(
       'Square root of a negative number is not allowed'
     );
+  });
+});
+
+describe('calculate aliases', () => {
+  test('supports basic operation aliases', () => {
+    expect(calculate('+', 7, 5)).toBe(12);
+    expect(calculate('subtract', 7, 5)).toBe(2);
+    expect(calculate('x', 7, 5)).toBe(35);
+    expect(calculate('divide', 7, 2)).toBe(3.5);
+  });
+
+  test('supports expanded operation aliases', () => {
+    expect(calculate('%', 10, 3)).toBe(1);
+    expect(calculate('power', 2, 8)).toBe(256);
+    expect(calculate('sqrt', 81)).toBe(9);
+  });
+
+  test('throws for unsupported operations', () => {
+    expect(() => calculate('noop', 1, 2)).toThrow('Unsupported operation');
   });
 });
